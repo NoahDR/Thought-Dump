@@ -1,6 +1,6 @@
 # Thought Dump – Voice to Markdown for Obsidian
 
-Thought Dump is a native cross-platform app (built with Flutter) that allows users to quickly record voice memos, transcribe them into text, and save them as beautifully formatted Markdown (.md) files in their Obsidian Vault (or other iCloud folders). The app offers:
+Thought Dump is a native cross-platform app (built with Flutter) that allows users to quickly record voice memos, transcribe them into text, and save them as beautifully formatted Markdown (.md) files in their Obsidian Vault (or other Cloud folders). The app offers:
 
 - Quick voice recording via app, Home Screen widget, or Lock Screen interface.
 - High-accuracy speech-to-text conversion using native APIs for fast and efficient transcription.
