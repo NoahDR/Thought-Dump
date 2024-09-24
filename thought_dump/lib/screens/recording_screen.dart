@@ -14,7 +14,6 @@ class _RecordingAnimationScreenState extends State<RecordingAnimationScreen> {
   bool _isRecording = false;
 
   void _toggleRecording() => setState(() => _isRecording = !_isRecording);
-  void _printSomething() => VoidCallbackAction();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class _RecordingAnimationScreenState extends State<RecordingAnimationScreen> {
               top: 60,
               left: 30,
               child: SettingsButton(
-                onPressed: () => _printSomething,
+                onPressed: () {},
               )),
         ],
       ),
