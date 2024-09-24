@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import '../widgets/animated_mic_button.dart';
+import '../widgets/settings_button.dart';
 
 class RecordingAnimationScreen extends StatefulWidget {
-  const RecordingAnimationScreen({Key? key}) : super(key: key);
+  const RecordingAnimationScreen({super.key});
 
   @override
   State<RecordingAnimationScreen> createState() =>
@@ -13,36 +14,41 @@ class _RecordingAnimationScreenState extends State<RecordingAnimationScreen> {
   bool _isRecording = false;
 
   void _toggleRecording() => setState(() => _isRecording = !_isRecording);
+  void _printSomething() => VoidCallbackAction();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 236, 232, 232),
+      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
       body: Stack(
-        alignment: Alignment
-            .bottomCenter, // Stack positioniert den Button am unteren Rand
+        alignment: Alignment.bottomCenter,
         children: [
           Center(
             child: _buildMainContent(),
           ),
           Padding(
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height *
-                    0.15), // Button im unteren Drittel
+                bottom: MediaQuery.of(context).size.height * 0.15),
             child: AnimatedMicButton(
               isRecording: _isRecording,
               onPressed: _toggleRecording,
             ),
           ),
+          Positioned(
+              top: 60,
+              left: 30,
+              child: SettingsButton(
+                onPressed: () => _printSomething,
+              )),
         ],
       ),
     );
   }
+}
 
-  Widget _buildMainContent() {
-    return const Text(
-      ' ',
-      style: TextStyle(color: Colors.white, fontSize: 24),
-    );
-  }
+Widget _buildMainContent() {
+  return const Text(
+    ' ',
+    style: TextStyle(color: Colors.white, fontSize: 24),
+  );
 }

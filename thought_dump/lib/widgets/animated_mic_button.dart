@@ -19,7 +19,7 @@ class AnimatedMicButton extends StatefulWidget {
 class _AnimatedMicButtonState extends State<AnimatedMicButton>
     with TickerProviderStateMixin {
   static const _kRotationDuration = Duration(seconds: 5);
-  static const _kPulseDuration = Duration(milliseconds: 1000);
+  static const _kPulseDuration = Duration(milliseconds: 1200);
 
   late final AnimationController _rotationController;
   late final AnimationController _pulseController;
@@ -88,12 +88,12 @@ class _AnimatedMicButtonState extends State<AnimatedMicButton>
           customBorder: const CircleBorder(),
           onTap: widget.onPressed,
           child: SizedBox(
-            width: 60,
-            height: 60,
+            width: 100,
+            height: 100,
             child: Icon(
               widget.isRecording ? Icons.stop : Icons.mic,
               color: Colors.black,
-              size: 30,
+              size: 100 * 0.5,
             ),
           ),
         ),

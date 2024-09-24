@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 class Blob extends StatelessWidget {
   final double scale;
 
-  const Blob({Key? key, required this.scale}) : super(key: key);
+  const Blob({super.key, required this.scale});
 
   @override
   Widget build(BuildContext context) {
     return Transform.scale(
       scale: scale,
       child: Container(
-        width: 90,
-        height: 90,
+        width: 120,
+        height: 120,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.white.withOpacity(0.5),
