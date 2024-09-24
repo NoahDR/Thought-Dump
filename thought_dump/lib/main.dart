@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'screens/recording_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const ThoughtDump());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ThoughtDump extends StatelessWidget {
+  const ThoughtDump({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        // Hier ein leerer Scaffold für eine leere App
-        body: Center(
-          child: Text('Leere App'), // Oder ein komplett leerer Body
-        ),
+    return MaterialApp(
+      title: 'Thought Dump',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: const RecordingAnimationScreen(),
     );
   }
 }
