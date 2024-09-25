@@ -4,7 +4,7 @@ import '../controllers/mic_animation_controller.dart';
 import '../providers/recording_provider.dart';
 import '../widgets/animated_mic_button.dart';
 import '../widgets/settings_button.dart';
-import '../utils/show_settings_dialog.dart'; // Importiere die ausgelagerte Funktion
+import '../utils/show_settings_dialog.dart';
 
 class RecordingAnimationScreen extends StatefulWidget {
   const RecordingAnimationScreen({super.key});

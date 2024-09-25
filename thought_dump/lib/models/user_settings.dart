@@ -14,7 +14,6 @@ class UserSettings {
     required this.defaultProperties,
   });
 
-  // Factory-Konstruktor für die Erstellung aus einem Map
   factory UserSettings.fromMap(Map<String, dynamic> map) {
     return UserSettings(
       id: map['id'] as String,
@@ -24,7 +23,6 @@ class UserSettings {
     );
   }
 
-  // Methode zum Konvertieren in ein Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -34,7 +32,6 @@ class UserSettings {
     };
   }
 
-  // Kopier-Methode mit optionaler Aktualisierung von Feldern
   UserSettings copyWith({
     String? id,
     String? defaultPath,
