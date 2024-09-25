@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class SettingsButton extends StatelessWidget {
   final VoidCallback onPressed;
+  final double size;
 
   const SettingsButton({
     super.key,
     required this.onPressed,
+    this.size = 50.0,
   });
 
   @override
@@ -17,13 +19,13 @@ class SettingsButton extends StatelessWidget {
       child: InkWell(
         customBorder: const CircleBorder(),
         onTap: onPressed,
-        child: const SizedBox(
-          width: 50.0,
-          height: 50.0,
+        child: SizedBox(
+          width: size,
+          height: size,
           child: Icon(
             Icons.settings,
             color: Colors.black,
-            size: 50.0 * 0.5,
+            size: size * 0.5,
           ),
         ),
       ),

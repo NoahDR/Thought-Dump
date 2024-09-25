@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
-import 'screens/recording_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:thought_dump/providers/recording_provider.dart';
+import 'package:thought_dump/screens/recording_screen.dart';
 
-void main() => runApp(const ThoughtDump());
+void main() {
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => RecordingProvider()),
+      ],
+      child: const ThoughtDumpApp(),
+    ),
+  );
+}
 
-class ThoughtDump extends StatelessWidget {
-  const ThoughtDump({super.key});
+class ThoughtDumpApp extends StatelessWidget {
+  const ThoughtDumpApp({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../controllers/mic_animation_controller.dart';
+import '../providers/recording_provider.dart';
 import '../widgets/animated_mic_button.dart';
 import '../widgets/settings_button.dart';
 
@@ -10,44 +13,63 @@ class RecordingAnimationScreen extends StatefulWidget {
       _RecordingAnimationScreenState();
 }
 
-class _RecordingAnimationScreenState extends State<RecordingAnimationScreen> {
-  bool _isRecording = false;
+class _RecordingAnimationScreenState extends State<RecordingAnimationScreen>
+    with TickerProviderStateMixin {
+  late MicAnimationController _micAnimationController;
 
-  void _toggleRecording() => setState(() => _isRecording = !_isRecording);
+  @override
+  void initState() {
+    super.initState();
+    _micAnimationController = MicAnimationController(this);
+  }
+
+  @override
+  void dispose() {
+    _micAnimationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    final height = mediaQuery.size.height;
+    final width = mediaQuery.size.width;
+
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+      backgroundColor: const Color.fromARGB(255, 18, 18, 18),
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Center(
-            child: _buildMainContent(),
-          ),
+          Center(child: _buildMainContent()),
           Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).size.height * 0.15),
-            child: AnimatedMicButton(
-              isRecording: _isRecording,
-              onPressed: _toggleRecording,
+            padding: EdgeInsets.only(bottom: height * 0.15),
+            child: Consumer<RecordingProvider>(
+              builder: (context, recordingProvider, _) {
+                return AnimatedMicButton(
+                  isRecording: recordingProvider.isRecording,
+                  onPressed: recordingProvider.toggleRecording,
+                  size: width * 0.25,
+                  animationController: _micAnimationController,
+                );
+              },
             ),
           ),
           Positioned(
-              top: 60,
-              left: 30,
-              child: SettingsButton(
-                onPressed: () {},
-              )),
+            top: height * 0.1,
+            left: width * 0.08,
+            child: SettingsButton(
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
     );
   }
-}
 
-Widget _buildMainContent() {
-  return const Text(
-    ' ',
-    style: TextStyle(color: Colors.white, fontSize: 24),
-  );
+  Widget _buildMainContent() {
+    return const Text(
+      'Recording...',
+      style: TextStyle(color: Colors.white, fontSize: 24),
+    );
+  }
 }

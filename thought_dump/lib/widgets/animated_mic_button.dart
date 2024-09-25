@@ -1,64 +1,34 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../controllers/mic_animation_controller.dart';
 import 'blob.dart';
 
-class AnimatedMicButton extends StatefulWidget {
+class AnimatedMicButton extends StatelessWidget {
   final bool isRecording;
   final VoidCallback onPressed;
+  final double size;
+  final MicAnimationController animationController;
 
   const AnimatedMicButton({
-    Key? key,
+    super.key,
     required this.isRecording,
     required this.onPressed,
-  }) : super(key: key);
-
-  @override
-  State<AnimatedMicButton> createState() => _AnimatedMicButtonState();
-}
-
-class _AnimatedMicButtonState extends State<AnimatedMicButton>
-    with TickerProviderStateMixin {
-  static const _kRotationDuration = Duration(seconds: 5);
-  static const _kPulseDuration = Duration(milliseconds: 1200);
-
-  late final AnimationController _rotationController;
-  late final AnimationController _pulseController;
-  late final Animation<double> _pulseAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _rotationController = AnimationController(
-      vsync: this,
-      duration: _kRotationDuration,
-    )..repeat();
-
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: _kPulseDuration,
-    )..repeat(reverse: true);
-
-    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
-      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _rotationController.dispose();
-    _pulseController.dispose();
-    super.dispose();
-  }
+    required this.size,
+    required this.animationController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: Listenable.merge([_rotationController, _pulseController]),
+      animation: Listenable.merge([
+        animationController.rotationController,
+        animationController.pulseController,
+      ]),
       builder: (context, child) {
         return Stack(
           alignment: Alignment.center,
           children: [
-            if (widget.isRecording) ...[
+            if (isRecording) ...[
               _buildBlob(0),
               _buildBlob(2 * pi / 3),
               _buildBlob(4 * pi / 3),
@@ -72,28 +42,31 @@ class _AnimatedMicButtonState extends State<AnimatedMicButton>
 
   Widget _buildBlob(double angleOffset) {
     return Transform.rotate(
-      angle: _rotationController.value * 2 * pi + angleOffset,
-      child: Blob(scale: widget.isRecording ? _pulseAnimation.value : 1.0),
+      angle:
+          animationController.rotationController.value * 2 * pi + angleOffset,
+      child: Blob(
+        scale: isRecording ? animationController.pulseAnimation.value : 1.0,
+      ),
     );
   }
 
   Widget _buildButton() {
     return Transform.scale(
-      scale: widget.isRecording ? _pulseAnimation.value : 1.0,
+      scale: isRecording ? animationController.pulseAnimation.value : 1.0,
       child: Material(
         elevation: 8.0,
         shape: const CircleBorder(),
         color: Colors.white,
         child: InkWell(
           customBorder: const CircleBorder(),
-          onTap: widget.onPressed,
+          onTap: onPressed,
           child: SizedBox(
-            width: 100,
-            height: 100,
+            width: size,
+            height: size,
             child: Icon(
-              widget.isRecording ? Icons.stop : Icons.mic,
+              isRecording ? Icons.stop : Icons.mic,
               color: Colors.black,
-              size: 100 * 0.5,
+              size: size * 0.5,
             ),
           ),
         ),
